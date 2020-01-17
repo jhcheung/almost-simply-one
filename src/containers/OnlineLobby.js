@@ -3,25 +3,11 @@ import CreateGame from '../components/CreateGame'
 import GameRooms from './GameRooms'
 import { connect } from 'react-redux'
 import { toggleInGame, loginUser } from '../actions/users'
+import BasicLogin from '../components/BasicLogin'
+import { Game } from "boardgame.io/core";
+
 
 const selectGameName = props => props.gameComponents[0].game.name;
-const selectAllPlayersNames = props => {
-  const playersNames = [];
-
-  if (!Array.isArray(props.rooms)) {
-    return playersNames;
-  }
-
-  props.rooms.forEach(gameInstance => {
-    gameInstance.players.forEach(player => {
-      if (player.name) {
-        playersNames.push(player.name);
-      }
-    });
-  });
-
-  return playersNames;
-};
 
 function OnlineLobby(props) {
     const {
@@ -45,18 +31,45 @@ function OnlineLobby(props) {
     // useEffect(() =>  {
     // }, [])
 
+    useEffect(() => {
+        if (!currentUser.name && (playerName !== "Visitor" || playerName !== "") && phase !== "enter") {
+            loginDispatch({
+                name: playerName
+            })
+        }
+    })
+
     useEffect(() =>  {
-        onEnterLobby(currentUser.name)
-        console.log(currentUser)
-    }, [currentUser.name])
+        if (currentUser.name !== "Visitor" && currentUser.name !== "" && phase !== "play" && playerName !== currentUser.name) {
+            onEnterLobby(currentUser.name)
+        } 
+    }, [currentUser.name, phase, onEnterLobby, playerName])
 
     useEffect(() => {
-        if (selectAllPlayersNames(props).includes(currentUser.name)) {
+        const selectAllPlayersNames = (rooms) => {
+            const playersNames = [];
+          
+            if (!Array.isArray(rooms)) {
+              return playersNames;
+            }
+          
+            rooms.forEach(gameInstance => {
+              gameInstance.players.forEach(player => {
+                if (player.name) {
+                  playersNames.push(player.name);
+                }
+              });
+            });
+          
+            return playersNames;
+          };
+          
+        if (selectAllPlayersNames(rooms).includes(currentUser.name)) {
             toggleDispatch(true)
         } else {
             toggleDispatch(false)
         }
-    }, [rooms])
+    }, [rooms, currentUser.name, toggleDispatch])
 
     console.log(props)
     const displayedRooms = () => {
@@ -70,14 +83,15 @@ function OnlineLobby(props) {
 
     switch (phase) {
         case "enter":
-            loginDispatch({
-                name: "Jimmy"
-            }) 
+            // loginDispatch({
+            //     name: "Jimmy"
+            // }) 
             // onEnterLobby(currentUser.name)
+            if (playerName) {
+
+            }
             return (
-                <div>
-                    logging in
-                </div>
+                <BasicLogin loginDispatch={loginDispatch}/>
             )
         case "list": 
 
@@ -98,6 +112,7 @@ function OnlineLobby(props) {
                 
                     }
                     <GameRooms 
+                        onExitLobby={onExitLobby}
                         playerName={playerName}
                         onEnterLobby={onEnterLobby}
                         rooms={displayedRooms()} 

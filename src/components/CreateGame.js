@@ -11,7 +11,9 @@ function CreateGame(props) {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        props.onCreateRoom(props.gameName, fields.numPlayers)
+        if (fields.numPlayers) {
+          props.onCreateRoom(props.gameName, fields.numPlayers)
+        }
         // resetField("roomName")
         resetField("numPlayers")
     }

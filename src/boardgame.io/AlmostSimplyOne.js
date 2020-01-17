@@ -1,5 +1,92 @@
 import wordList from '../data/wordList'
 
+// import { Stage } from 'boardgame.io/core';
+// import { ActivePlayers } from 'boardgame.io/core';
+
+
+function drawCard (G, ctx) {
+  // console.log(G)
+  // console.log(...G.wordList)
+  // console.log(...ctx.random.Shuffle(G.wordList))
+  // let newWordList = ctx.random.Shuffle([...G.wordList])
+  let newWordList = [...G.wordList]
+  let newWord = newWordList.pop()
+  G.cardsLeft = G.cardsLeft - 1
+  G.wordList = [...newWordList]
+  G.word = newWord
+  ctx.events.setActivePlayers({
+    currentPlayer: 'waiting',
+    others: 'clue'
+  })
+  // G.cardsLeft = G.cardsLeft - 1
+  // G.wordList = ctx.random.Shuffle(G.wordList)
+  // G.word = G.wordList[G.wordList.length - 1]
+  // G.wordList.pop()
+}
+
+function guessWrong(G, ctx) {
+  if (G.cardsLeft <= 0) {
+    G.cardsLeft = 0
+    if (G.points === 0) {
+      G.points = 0
+    } else {
+      G.points -= 1
+    }
+  } else {
+    G.cardsLeft -= 1
+  }
+  G.clues = []
+  ctx.events.endTurn()
+  //maybe setstage to transition screen for pts
+}
+
+function guessRight(G, ctx) {
+  G.points = G.points + 1
+  G.clues = []
+  ctx.events.endTurn()
+  //maybe setstage to transition screen for pts
+}
+
+function passClue(G, ctx) {
+  G.clues = []
+  ctx.events.endTurn()
+  //maybe setstage to transition screen for pts
+}
+
+function guessClue(G, ctx, guess) {
+  if (guess == G.word) {
+    guessRight(G, ctx)
+  } else {
+    guessWrong(G, ctx)
+  }
+}
+
+function giveClue(G, ctx, clue) {
+  G.clues.push(clue)
+  if (Object.keys(ctx.activePlayers).length - 1 <= G.clues.length) {
+    console.log("before", ctx.activePlayers)
+    ctx.events.setActivePlayers({
+      currentPlayer: 'guess',
+      others: 'waiting'
+    })
+    console.log("after", ctx.activePlayers)
+
+  } else {
+    ctx.events.setStage('waiting') 
+  }
+  console.log("after alllll", ctx.activePlayers)
+}
+
+function switchActivePlayers(G, ctx) {
+  console.log("before", ctx.activePlayers)
+    ctx.events.setActivePlayers({
+      currentPlayer: 'waiting',
+      others: 'guess'
+    })
+  console.log("after", ctx.activePlayers)
+}
+
+
 const AlmostSimplyOne = {
     name: "Almost-Simply-One",
   
@@ -11,53 +98,43 @@ const AlmostSimplyOne = {
       wordList: [...wordList],
       debug: true
     }),
-  
+
     moves: {
-      drawCard: (G, ctx) => {
-        // console.log(G)
-        // console.log(...G.wordList)
-        // console.log(...ctx.random.Shuffle(G.wordList))
-        // let newWordList = ctx.random.Shuffle([...G.wordList])
-        let newWordList = [...G.wordList]
-        let newWord = newWordList.pop()
-        return {
-          ...G, 
-          cardsLeft: G.cardsLeft - 1,
-          wordList: [...newWordList],
-          word: newWord
-        }
-        // G.cardsLeft = G.cardsLeft - 1
-        // G.wordList = ctx.random.Shuffle(G.wordList)
-        // G.word = G.wordList[G.wordList.length - 1]
-        // G.wordList.pop()
-      },
-      // guessWrong(G, ctx) {
-      //   if (G.cardsLeft <= 1) {
-      //     G.cardsLeft = 0
-      //     if (G.points === 0) {
-      //       G.points = 0
-      //     } else {
-      //       G.points -= 1
-      //     }
-      //   } else {
-      //     G.cardsLeft -= 2
-      //   }
-      // },
-      // guessRight(G, ctx) {
-      //   G.cardsLeft -= 1
-      //   G.points += 1
-      // },
-      // passClue(G, ctx, id) {
-      //   G.cardsLeft -= 1
-      // },
-      // addClue(G, ctx, clue) {
-      //   G.clues.push(clue)
-      // }
+      switchActivePlayers
     },
-    
+    turn: {
+      activePlayers: { currentPlayer: 'draw', others: 'waiting' },
+      stages: {
+        draw: {
+          moves: {
+            drawCard,
+            switchActivePlayers
+          },
+          next: 'waiting'
+        },
+        waiting: {
+
+        },
+        clue: {
+          moves: {
+            giveClue
+          },
+          next: 'waiting'
+        },
+        guess: {
+          moves: {
+            passClue,
+            guessClue
+            // guessRight,
+            // guessWrong
+          }
+        }
+      }
+    },
+      
     endIf: (G) => {
         if (G.cardsLeft <= 0 ) {
-          debugger
+
             return { finalPoints: G.points };
         }
     }

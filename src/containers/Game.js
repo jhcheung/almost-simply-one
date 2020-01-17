@@ -1,17 +1,19 @@
 import React from 'react';
-// import { Client } from "boardgame.io/react";
+import { Client } from "boardgame.io/react";
 import AlmostSimplyOne from "../boardgame.io/AlmostSimplyOne";
 import AlmostSimplyOneBoard from "../boardgame.io/Board";
-// import { SocketIO } from 'boardgame.io/multiplayer'
+import { SocketIO } from 'boardgame.io/multiplayer'
 import { Lobby } from 'boardgame.io/react';
 import OnlineLobby from './OnlineLobby'
+import { Local } from 'boardgame.io/multiplayer';
 
 
-// const AlmostSimplyOneClient = Client({
-//   game: AlmostSimplyOne,
-//   board: AlmostSimplyOneBoard,
-//   multiplayer: SocketIO({ server: 'http://localhost:8000/' })
-// });
+const AlmostSimplyOneClient = Client({
+  game: AlmostSimplyOne,
+  board: AlmostSimplyOneBoard,
+  multiplayer: SocketIO({ server: 'http://localhost:8000/' })
+  // multiplayer: Local()
+});
 
 
 function Game() {
@@ -55,6 +57,9 @@ function Game() {
                 />
               )}
         />
+        // <div>
+        //   <AlmostSimplyOneClient />
+        //  </div>
     )
 } 
 
