@@ -1,24 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 
-const EndGameModal = (props) => (
-  <Modal trigger={} basic size='small'>
-    <Header icon='pencil alternate' content='Game Over' />
-    <Modal.Content>
-      <p>
-        Your inbox is getting full, would you like us to enable automatic
-        archiving of old messages?
-      </p>
-    </Modal.Content>
-    <Modal.Actions>
-      <Button basic color='red' inverted>
-        <Icon name='remove' /> Dismiss
-      </Button>
-      {/* <Button color='green' inverted>
-        <Icon name='checkmark' /> Yes
-      </Button> */}
-    </Modal.Actions>
-  </Modal>
-)
+const EndGameModal = (props) => {
+
+	const [modalOpen, setOpenModal] = useState(true)
+    return (
+      <Modal open={props.gameover && modalOpen} basic size='small'>
+        <Header icon='pencil alternate' content='Game Over' />
+        <Modal.Content>
+          <p>
+            You've completed your game of 'Almost Simply One' with a score of {props.gameover.finalPoints}!
+          </p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='standard' inverted>
+            <Icon name='backward' /> Back to Lobby
+          </Button>
+
+          <Button basic color='green' inverted onClick={() => setOpenModal(false)}>
+            <Icon name='remove' /> See Score Breakdown
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    )  
+  }
+
+
+  
 
 export default EndGameModal

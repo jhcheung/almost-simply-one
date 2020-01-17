@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Form, Button } from 'semantic-ui-react'
 
 function BasicLogin(props) {
-    let [name, setName] = useState("");
+    const [name, setName] = useState("");
     const handleSubmit = (e) =>{
         e.preventDefault();
         // resetField("roomName")
         props.loginDispatch({ name: name })
-        name = ""
+        setName("")
     }
 
     const handleChange = (e, { value } ) =>  {

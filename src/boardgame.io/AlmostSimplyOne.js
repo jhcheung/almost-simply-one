@@ -1,5 +1,5 @@
 import wordList from '../data/wordList'
-
+import { PlayerView } from 'boardgame.io/core';
 // import { Stage } from 'boardgame.io/core';
 // import { ActivePlayers } from 'boardgame.io/core';
 
@@ -91,6 +91,16 @@ const AlmostSimplyOne = {
     name: "Almost-Simply-One",
   
     setup: () => ({
+      secret: {
+        word: "",
+        clues: [],
+        wordList: [...wordList]
+      },
+      players: {
+        '0': { points: 0 },
+        '1': { points: 0 },
+        '2': { points: 0 }
+      },
       cardsLeft: 13,
       word: "",
       clues: [],
@@ -98,6 +108,8 @@ const AlmostSimplyOne = {
       wordList: [...wordList],
       debug: true
     }),
+    
+    playerView: PlayerView.STRIP_SECRETS,
 
     moves: {
       switchActivePlayers
@@ -134,7 +146,6 @@ const AlmostSimplyOne = {
       
     endIf: (G) => {
         if (G.cardsLeft <= 0 ) {
-
             return { finalPoints: G.points };
         }
     }
