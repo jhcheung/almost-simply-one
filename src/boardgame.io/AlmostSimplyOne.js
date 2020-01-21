@@ -8,12 +8,13 @@ function drawCard (G, ctx) {
   // console.log(G)
   // console.log(...G.wordList)
   // console.log(...ctx.random.Shuffle(G.wordList))
-  // let newWordList = ctx.random.Shuffle([...G.wordList])
-  let newWordList = [...G.wordList]
+  let newWordList = ctx.random.Shuffle([...G.secret.wordList])
+//   let newWordList = [...G.secret.wordList]
   let newWord = newWordList.pop()
   G.cardsLeft = G.cardsLeft - 1
-  G.wordList = [...newWordList]
-  G.word = newWord
+  G.secret.wordList = [...newWordList]
+  G.secret.word = newWord
+  console.log(G.secret.word)
   ctx.events.setActivePlayers({
     currentPlayer: 'waiting',
     others: 'clue'
@@ -23,6 +24,14 @@ function drawCard (G, ctx) {
   // G.word = G.wordList[G.wordList.length - 1]
   // G.wordList.pop()
 }
+function guessRight(G, ctx) {
+  G.points = G.points + 1
+  G.players[ctx.currentPlayer] = G.players[ctx.currentPlayer] + 1
+  G.secret.clues = []
+  ctx.events.endTurn()
+  //maybe setstage to transition screen for pts
+}
+
 
 function guessWrong(G, ctx) {
   if (G.cardsLeft <= 0) {
@@ -35,26 +44,34 @@ function guessWrong(G, ctx) {
   } else {
     G.cardsLeft -= 1
   }
-  G.clues = []
+  G.secret.clues = []
   ctx.events.endTurn()
   //maybe setstage to transition screen for pts
 }
 
-function guessRight(G, ctx) {
-  G.points = G.points + 1
-  G.clues = []
-  ctx.events.endTurn()
-  //maybe setstage to transition screen for pts
-}
 
 function passClue(G, ctx) {
-  G.clues = []
+  G.secret.clues = []
   ctx.events.endTurn()
   //maybe setstage to transition screen for pts
 }
 
+function eliminateClue(G, ctx, removeClue) {
+	G.secret.clues = G.secret.clues.filter(clue => clue !== removeClue)
+}
+
+function revealClues(G, ctx, playerID) {
+	G.players[playerID].clues = G.secret.clues
+}
+  
+
+function revealWord(G, ctx, playerID) {
+	G.players[playerID].word = G.secret.word
+}
+
+
 function guessClue(G, ctx, guess) {
-  if (guess == G.word) {
+  if (guess.toLowerCase() === G.secret.word.toLowerCase()) {
     guessRight(G, ctx)
   } else {
     guessWrong(G, ctx)
@@ -62,8 +79,8 @@ function guessClue(G, ctx, guess) {
 }
 
 function giveClue(G, ctx, clue) {
-  G.clues.push(clue)
-  if (Object.keys(ctx.activePlayers).length - 1 <= G.clues.length) {
+  G.secret.clues.push(clue)
+  if (Object.keys(ctx.activePlayers).length - 1 <= G.secret.clues.length) {
     console.log("before", ctx.activePlayers)
     ctx.events.setActivePlayers({
       currentPlayer: 'guess',
@@ -86,40 +103,71 @@ function switchActivePlayers(G, ctx) {
   console.log("after", ctx.activePlayers)
 }
 
+// const stripSecrets = (G, ctx, playerID) => {
+// 	if (ctx.activePlayers && ctx.activePlayers[playerID] === 'waiting') {
+// 		return ({
+// 			players: {
+// 				[playerID]: G.players[playerID]
+// 			},
+// 			cardsLeft: G.cardsLeft,
+// 			points: G.points,
+// 		}) 
+// 	} else if (ctx.activePlayers && ctx.activePlayers[playerID] === 'clue') {
+// 		return({
+// 			players: {
+// 				[playerID]: G.players[playerID]
+// 			},
+// 			word: "",
+// 			clues: [],
+// 			cardsLeft: G.cardsLeft,
+// 			points: G.points
+// 		})
+// 	}
+// }
 
 const AlmostSimplyOne = {
     name: "Almost-Simply-One",
   
     setup: () => ({
-      secret: {
-        word: "",
-        clues: [],
-        wordList: [...wordList]
-      },
-      players: {
-        '0': { points: 0 },
-        '1': { points: 0 },
-        '2': { points: 0 }
-      },
-      cardsLeft: 13,
-      word: "",
-      clues: [],
-      points: 0,
-      wordList: [...wordList],
-      debug: true
+		secret: {
+			word: "",
+			wordList: [...wordList],
+			clues: []
+		},
+		players: {
+			'0': { points: 0, clues: [], word: "" },
+			'1': { points: 0, clues: [], word: "" },
+			'2': { points: 0, clues: [], word: ""  },
+			'3': { points: 0, clues: [], word: ""  },
+			'4': { points: 0, clues: [], word: ""  },
+			'5': { points: 0, clues: [], word: ""  },
+			'6': { points: 0, clues: [], word: ""  },
+		},
+		cardsLeft: 3,
+		points: 0,
+		clues: [],
+		// word: "",
+		// wordList: [...wordList],
+		// debug: true
     }),
     
-    playerView: PlayerView.STRIP_SECRETS,
+    // playerView: (G, ctx, playerID) => {
+	// 	return stripSecrets(G, ctx, playerID)
+	// },
+	playerView: PlayerView.STRIP_SECRETS,
 
     moves: {
-      switchActivePlayers
+      switchActivePlayers //test
     },
     turn: {
       activePlayers: { currentPlayer: 'draw', others: 'waiting' },
       stages: {
         draw: {
           moves: {
-            drawCard,
+            drawCard: {
+				move: drawCard,
+				optimistic: false
+			},
             switchActivePlayers
           },
           next: 'waiting'
@@ -129,14 +177,31 @@ const AlmostSimplyOne = {
         },
         clue: {
           moves: {
-            giveClue
+            giveClue: {
+				move: giveClue,
+				optimistic: false
+			},
+			revealWord: {
+				move: revealWord,
+				optimistic: false
+			}
           },
           next: 'waiting'
         },
         guess: {
           moves: {
-            passClue,
-            guessClue
+			revealClues: {
+				move: revealClues,
+				optimistic: false
+			},
+            passClue: {
+				move: passClue,
+				optimistic: false
+			},
+            guessClue: {
+				move: guessClue,
+				optimistic: false
+			}
             // guessRight,
             // guessWrong
           }
@@ -146,7 +211,10 @@ const AlmostSimplyOne = {
       
     endIf: (G) => {
         if (G.cardsLeft <= 0 ) {
-            return { finalPoints: G.points };
+			return { 
+				finalPoints: G.points,
+				players: G.players
+			};
         }
     }
   };

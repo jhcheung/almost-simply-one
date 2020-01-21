@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'semantic-ui-react'
+import Clues from './Clues'
 
 function GuessPage(props) {
 
@@ -18,6 +19,9 @@ function GuessPage(props) {
 
     return(
         <>
+            <Clues clues={props.clues} 
+                    revealClues={props.revealClues} 
+                    playerID={props.playerID}/>
             <Form onSubmit={handleSubmit}>
                 <Form.Group widths='equal'>
                 <Form.Input 

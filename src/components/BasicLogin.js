@@ -7,6 +7,7 @@ function BasicLogin(props) {
         e.preventDefault();
         // resetField("roomName")
         props.loginDispatch({ name: name })
+        props.onEnterLobby(name)
         setName("")
     }
 

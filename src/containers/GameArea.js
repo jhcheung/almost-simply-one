@@ -15,10 +15,17 @@ function GameArea(props) {
             renderGameArea = null
             break;
         case 'clue':
-            renderGameArea = <CluePage giveClue={props.giveClue} />
+            renderGameArea = <CluePage 
+                                word={props.word}
+                                playerID={props.playerID}
+                                revealWord={props.revealWord}    
+                                giveClue={props.giveClue} />
             break;
         case 'guess':
             renderGameArea = <GuessPage 
+                                clues={props.clues}
+                                playerID={props.playerID}
+                                revealClues={props.revealClues}
                                 guessClue={props.guessClue} 
                                 passClue={props.passClue} 
                             />

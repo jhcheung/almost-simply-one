@@ -13,12 +13,12 @@ const EndGameModal = (props) => {
           </p>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='standard' inverted>
-            <Icon name='backward' /> Back to Lobby
-          </Button>
+          {/* <Button color='standard' inverted>
+            <Icon name='backward' /> Leave to Lobby
+          </Button> */}
 
           <Button basic color='green' inverted onClick={() => setOpenModal(false)}>
-            <Icon name='remove' /> See Score Breakdown
+            <Icon name='remove' /> See Game Board
           </Button>
         </Modal.Actions>
       </Modal>

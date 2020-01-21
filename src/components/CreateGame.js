@@ -33,6 +33,14 @@ function CreateGame(props) {
           <label>Players</label>
           <Form.Radio
             name='numPlayers'
+            label='3'
+            value='3'
+            checked={fields.numPlayers === '3'}
+            onChange={handleFieldChange}
+          />
+
+          <Form.Radio
+            name='numPlayers'
             label='4'
             value='4'
             checked={fields.numPlayers === '4'}

@@ -7,7 +7,7 @@ const server = Server({
 
   db: new Mongo({
       url: 'mongodb://localhost:27017',
-      dbname: 'bgio9'
+      dbname: 'bgio11'
   }),
 });
 

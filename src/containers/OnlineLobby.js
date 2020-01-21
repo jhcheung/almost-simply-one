@@ -5,9 +5,14 @@ import { connect } from 'react-redux'
 import { toggleInGame, loginUser } from '../actions/users'
 import BasicLogin from '../components/BasicLogin'
 import { Game } from "boardgame.io/core";
+import EndGameModal from '../components/EndGameModal'
+import ScoreScreen from '../components/ScoreScreen'
+import ExitButton from '../components/ExitButton'
+
 
 
 const selectGameName = props => props.gameComponents[0].game.name;
+
 
 function OnlineLobby(props) {
     const {
@@ -27,7 +32,6 @@ function OnlineLobby(props) {
         onStartGame
     } = props;
     
-
     // useEffect(() =>  {
     // }, [])
 
@@ -37,13 +41,13 @@ function OnlineLobby(props) {
                 name: playerName
             })
         }
-    })
+    }, [currentUser.name, playerName, phase, loginDispatch])
 
-    useEffect(() =>  {
-        if (currentUser.name !== "Visitor" && currentUser.name !== "" && phase !== "play" && playerName !== currentUser.name) {
-            onEnterLobby(currentUser.name)
-        } 
-    }, [currentUser.name, phase, onEnterLobby, playerName])
+    // useEffect(() =>  {
+    //     if (currentUser.name !== "Visitor" && currentUser.name !== "" && phase !== "play" && playerName !== currentUser.name) {
+    //         onEnterLobby(currentUser.name)
+    //     } 
+    // }, [currentUser.name, phase, onEnterLobby, playerName])
 
     useEffect(() => {
         const selectAllPlayersNames = (rooms) => {
@@ -81,17 +85,19 @@ function OnlineLobby(props) {
         }
     }
 
+    const handleLeaveRoom = () => {
+        const currentPlayerGames = rooms.filter(room => room.players.some(player => player.name === playerName))
+        currentPlayerGames.forEach(game => onLeaveRoom(selectGameName(props), game.gameID))
+    }
+
     switch (phase) {
         case "enter":
             // loginDispatch({
             //     name: "Jimmy"
             // }) 
             // onEnterLobby(currentUser.name)
-            if (playerName) {
-
-            }
             return (
-                <BasicLogin loginDispatch={loginDispatch}/>
+                <BasicLogin loginDispatch={loginDispatch} onEnterLobby={onEnterLobby} />
             )
         case "list": 
 
@@ -125,14 +131,19 @@ function OnlineLobby(props) {
                 </div>
             )
         case "play": 
+
             return (
-                runningGame && (
-                    <runningGame.app
-                      gameID={runningGame.gameID}
-                      playerID={'' + runningGame.playerID}
-                      credentials={runningGame.credentials}
-                    />
-                  )
+                <>
+                    <ExitButton playerName={playerName} handleLeaveRoom={handleLeaveRoom} />
+                    {runningGame && (
+                            
+                            <runningGame.app
+                                gameID={runningGame.gameID}
+                                playerID={'' + runningGame.playerID}
+                                credentials={runningGame.credentials}
+                            />
+                    )}
+                </>
             )
         default: 
             return (
