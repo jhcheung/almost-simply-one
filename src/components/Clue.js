@@ -5,7 +5,7 @@ import { Button, Card } from 'semantic-ui-react'
 function Clue(props) {
     
     return(
-        <Card>
+        <Card color={props.color}>
           <Card.Content>
             <Card.Header>{props.clue}</Card.Header>
             {/* <Card.Meta>New User</Card.Meta>

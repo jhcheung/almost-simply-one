@@ -5,7 +5,7 @@ const ScoreScreen = (props) => {
 
     return (
         <>
-            <Table basic='very' celled collapsing>
+            <Table celled color="green">
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Player</Table.HeaderCell>
@@ -16,19 +16,21 @@ const ScoreScreen = (props) => {
                 <Table.Body>
                     {
                         Object.values(props.gameover.players).map((player, index) => {
-                            return (
-                                <Table.Row>
-                                    <Table.Cell>
-                                    <Header as='h4' image>
-                                        <Header.Content>
-                                            {props.playerNames[index]}
-                                        {/* <Header.Subheader>Human Resources</Header.Subheader> */}
-                                        </Header.Content>
-                                    </Header>
-                                    </Table.Cell>
-                                    <Table.Cell>{player.points}</Table.Cell>
-                                </Table.Row>
-                            )
+                            if (props.playerNames[index]) {
+                                return (
+                                    <Table.Row>
+                                        <Table.Cell>
+                                        <Header as='h4' image>
+                                            <Header.Content>
+                                                {props.playerNames[index]}
+                                            {/* <Header.Subheader>Human Resources</Header.Subheader> */}
+                                            </Header.Content>
+                                        </Header>
+                                        </Table.Cell>
+                                        <Table.Cell>{player.points}</Table.Cell>
+                                    </Table.Row>
+                                )
+                            }
                         })
                     }
                 </Table.Body>

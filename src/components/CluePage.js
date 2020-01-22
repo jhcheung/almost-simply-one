@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'semantic-ui-react'
 import Word from './Word'
 
+
 function CluePage(props) {
 
     const [clue, setClue] = useState("");
@@ -18,9 +19,12 @@ function CluePage(props) {
     }
 
 
-    useEffect(() => {
-        props.revealWord(props.playerID);
-    }, [])
+      
+
+    // useEffect(() => {
+    //     props.revealWord(props.playerID);
+
+    // }, [props.playerID, props.revealWord, props.word])
 
     return(
         <>
@@ -37,7 +41,7 @@ function CluePage(props) {
                 />
                 </Form.Group>
 
-                <Button type='submit'>Add Clue</Button>
+                <Button primary type='submit'>Add Clue</Button>
             </Form>
         </>
     )

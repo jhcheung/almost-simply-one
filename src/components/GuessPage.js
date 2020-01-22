@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Segment } from 'semantic-ui-react'
 import Clues from './Clues'
 
 function GuessPage(props) {
@@ -22,21 +22,23 @@ function GuessPage(props) {
             <Clues clues={props.clues} 
                     revealClues={props.revealClues} 
                     playerID={props.playerID}/>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group widths='equal'>
-                <Form.Input 
-                        fluid label='guess' 
-                        placeholder='guess' 
-                        name="guess" 
-                        value={guess} 
-                        onChange={handleChange} 
-                />
-                </Form.Group>
+            <Segment>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group widths='equal'>
+                    <Form.Input 
+                            placeholder='guess' 
+                            name="guess" 
+                            value={guess} 
+                            onChange={handleChange} 
+                    />
+                    </Form.Group>
 
-                <Button type='submit'>Guess</Button>
-            </Form>
+                    <Button positive type='submit'>Guess</Button>
+                    <Button negative onClick={() => props.passClue()}>Pass</Button>
 
-            <Button onClick={() => props.passClue()}>Pass</Button>
+                </Form>
+
+            </Segment>
         </>
     )
 }

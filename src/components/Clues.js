@@ -8,11 +8,12 @@ function Clues(props) {
     useEffect(() => {
         props.revealClues(props.playerID);
     }, [])
+    const colors = ['teal', 'green', 'yellow', 'brown', 'grey', 'brown', 'orange' ]
 
     return(
-        <Card.Group>
+        <Card.Group centered>
             {
-                props.clues.map(clue => <Clue clue={clue} key={clue}/>)
+                props.clues.map((clue, index) => <Clue clue={clue} color={colors[index]} key={index}/>)
             }
         </Card.Group>
     )

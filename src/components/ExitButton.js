@@ -11,7 +11,7 @@ const ExitButton = (props) => {
 
     return(
         <>
-            <Button icon labelPosition='left' onClick={props.handleLeaveRoom} >
+            <Button icon labelPosition='left' onClick={() => props.handleLeaveRoom()} >
                 <Icon name='backward' />
 
                 Leave to Lobby

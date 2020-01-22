@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-export default function UnauthenticatedRoute({ component: C, appProps, ...rest }) {
+export default function UnauthenticatedRoute({ component: C, currentUser, ...rest }) {
   return (
     <Route
       {...rest}
       render={props =>
-        !appProps.isAuthenticated
-          ? <C {...props} {...appProps} />
+        !currentUser.name
+          ? <C {...props} />
           : <Redirect to="/" />}
     />
   );

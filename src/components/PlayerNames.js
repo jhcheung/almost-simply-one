@@ -4,9 +4,12 @@ import { Menu, Icon } from 'semantic-ui-react'
 
 function PlayerNames(props) {
     console.log(props)
+
+    const colors = ['teal', 'green', 'yellow', 'brown', 'grey', 'brown', 'orange' ]
     return(
             <Menu
               icon='labeled'
+              pointing
             //   style={overlayFixed ? fixedOverlayMenuStyle : overlayMenuStyle}
               vertical
             >
@@ -14,7 +17,7 @@ function PlayerNames(props) {
                     props.playerNames.map((playerName, index)=>  
                         <Menu.Item 
                             key={index}
-                            color="red"
+                            style={{backgroundColor: colors[index]}}
                             content={playerName} 
                             active={parseInt(props.currentPlayer) === index}
                         />

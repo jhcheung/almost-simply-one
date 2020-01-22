@@ -10,11 +10,11 @@ function GameRoom(props) {
   
 
     const handleJoin = () => {
-        console.log(props)
-        console.log(props.room.gameName, props.room.gameID)
+        // console.log(props)
+        // console.log(props.room.gameName, props.room.gameID)
 
         props.onJoinRoom(props.gameName, props.room.gameID, freeSeat.id)
-        console.log("hello")
+        // console.log("hello")
         props.toggleDispatch(true)
     }
 

@@ -8,7 +8,6 @@ function GameRooms(props) {
     
     return(
         <>
-            <Button onClick={() => props.onExitLobby()}>Logout</Button>
             <Card.Group className="game-rooms" >
                 {props.rooms.map(room => <GameRoom 
                                             key={room.gameID} 

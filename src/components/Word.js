@@ -5,7 +5,7 @@ import { Card } from 'semantic-ui-react'
 function Word(props) {
     
     return(
-        <Card color='purple'>
+        <Card centered color='purple'>
           <Card.Content>
             <Card.Header>{props.word}</Card.Header>
             {/* <Card.Meta>New User</Card.Meta>

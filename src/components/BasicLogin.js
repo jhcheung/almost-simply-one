@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Grid, Header, Segment } from 'semantic-ui-react'
 
 function BasicLogin(props) {
     const [name, setName] = useState("");
@@ -16,19 +16,49 @@ function BasicLogin(props) {
     }
 
     return(
-        <Form onSubmit={handleSubmit}>
-            <Form.Group widths='equal'>
-            <Form.Input 
-                    fluid label='name' 
-                    placeholder='name' 
-                    name="name" 
-                    value={name} 
-                    onChange={handleChange} 
-            />
-            </Form.Group>
+        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          {/* <Header as='h2' color='teal' textAlign='center'>
+            <Image src='/logo.png' /> 
+            Almost Simply One
+          </Header> */}
+          <Form size='medium' onSubmit={handleSubmit}>
+            <Segment stacked>
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' value={name} onChange={handleChange} />
+              {/* <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+              /> */}
+  
+              <Button color='teal' fluid size='large'>
+                Login
+              </Button>
+            </Segment>
+          </Form>
+          {/* <Message>
+            New to us? <Link to='/signup'>Sign Up</Link>
+          </Message> */}
+        </Grid.Column>
+      </Grid>    
+  
 
-            <Button type='submit'>Submit</Button>
-        </Form>
+
+        // <Form onSubmit={handleSubmit}>
+        //     <Form.Group widths='equal'>
+        //     <Form.Input 
+        //             fluid label='name' 
+        //             placeholder='name' 
+        //             name="name" 
+        //             value={name} 
+        //             onChange={handleChange} 
+        //     />
+        //     </Form.Group>
+
+        //     <Button type='submit'>Submit</Button>
+        // </Form>
     )
 }
 

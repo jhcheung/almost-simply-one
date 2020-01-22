@@ -6,6 +6,7 @@ import { SocketIO } from 'boardgame.io/multiplayer'
 import { Lobby } from 'boardgame.io/react';
 import OnlineLobby from './OnlineLobby'
 import { Local } from 'boardgame.io/multiplayer';
+import { Container } from 'semantic-ui-react'
 
 
 const AlmostSimplyOneClient = Client({
@@ -18,6 +19,7 @@ const AlmostSimplyOneClient = Client({
 
 function Game() {
     return(
+      <Container style={{paddingTop: '50px'}}>
         <Lobby
             gameServer={`http://${window.location.hostname}:8000`}
             lobbyServer={`http://${window.location.hostname}:8000`}
@@ -57,6 +59,8 @@ function Game() {
                 />
               )}
         />
+
+      </Container>
         // <div>
         //   <AlmostSimplyOneClient />
         //  </div>

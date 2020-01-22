@@ -7,7 +7,7 @@ function TurnMessage(props) {
 
     if (props.gameover) {
         return (
-            <Message error>Game Over</Message>
+            <Message style={{textAlign: 'center'}} error>Game Over</Message>
         )
     }
 
@@ -35,7 +35,7 @@ function TurnMessage(props) {
 
 
     return (
-        <Message positive>{message}</Message>
+        <Message style={{textAlign: 'center'}} positive>{message}</Message>
     )
 }
 
