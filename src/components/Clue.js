@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Card } from 'semantic-ui-react'
 
 
 function Clue(props) {
+
+    const [ eliminated, setEliminated ] = useState(false)
+
+    const handleClick = () => {
+      props.eliminateClue(props.clue)
+      setEliminated(true)
+    }
     
     return(
-        <Card color={props.color}>
+        <Card className={eliminated ? 'inverted' : ""} color={props.color}>
           <Card.Content>
             <Card.Header>{props.clue}</Card.Header>
             {/* <Card.Meta>New User</Card.Meta>
@@ -17,14 +24,14 @@ function Clue(props) {
               props.elimination 
               ? 
                 <Card.Content extra>
-                    <div className='ui two buttons'>
-                    <Button basic color='green'>
+                    {/* <div className='ui two buttons'> */}
+                    {/* <Button basic color='green'>
                         Approve
+                    </Button> */}
+                    <Button onClick={handleClick} basic color='red'>
+                        Cancel
                     </Button>
-                    <Button basic color='red'>
-                        Decline
-                    </Button>
-                    </div>
+                    {/* </div> */}
                 </Card.Content>
             : null
           }

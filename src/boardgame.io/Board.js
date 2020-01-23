@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-// import PropTypes from 'prop-types'
-import { Button, Grid } from 'semantic-ui-react'
+import React, { useEffect } from 'react'
+import { Grid } from 'semantic-ui-react'
 import TurnMessage from '../components/TurnMessage'
 import GameArea from '../containers/GameArea'
 import EndGameModal from '../components/EndGameModal'
 import ScoreScreen from '../components/ScoreScreen'
 import PlayerNames from '../components/PlayerNames'
 import PointCounter from '../components/PointCounter'
+import CountdownTimer from '../components/CountdownTimer'
+
 
 import { store } from 'react-notifications-component';
 
@@ -22,7 +23,7 @@ function Board(props) {
 
 
     useEffect(() => {
-        if (props.G.notification) {
+        if (props.G.notification && !props.ctx.gameover) {
             store.addNotification({
                 title: props.G.notification.includes("correct") ? "Yes!" : "Oh no!",
                 message: props.G.notification,
@@ -37,12 +38,18 @@ function Board(props) {
                 }
               });          
         }
-    }, [props.G.notification])
+    }, [props.G.notification, props.ctx.gameover])
 
     const playerNames = props.gameMetadata.map(player => player.name)
     // console.log(props)
     // console.log(playerNames)
 
+    const isCounting = props.ctx.activePlayers 
+                        ? Object.keys(props.ctx.activePlayers).find(playerNum => props.ctx.activePlayers[playerNum] === 'elimination') === props.playerID
+                        : null
+    const eliminationStage = props.ctx.activePlayers
+                            ? Object.values(props.ctx.activePlayers).find(stage => stage === 'elimination')
+                            : null
     const stage = props.ctx.activePlayers ? props.ctx.activePlayers[props.playerID] : "gameover"
     return(
         <>
@@ -74,6 +81,7 @@ function Board(props) {
 
                             <Grid.Column width={10}>
                                 <GameArea 
+                                            currentPlayer={props.ctx.currentPlayer}
                                             playerID={props.playerID}
                                             stage={stage}
                                             word={props.G.players[props.playerID].word}
@@ -84,21 +92,28 @@ function Board(props) {
                                             giveClue={props.moves.giveClue}
                                             guessClue={props.moves.guessClue}
                                             passClue={props.moves.passClue}
+                                            eliminateClue={props.moves.eliminateClue}
+                                            endElimination={props.moves.endElimination}
                                         />
                             </Grid.Column>
                             <Grid.Column width={3}>
                                 <PointCounter points={props.G.points} cardsLeft={props.G.cardsLeft}/>
+                                {
+                                    eliminationStage
+                                    ?  <CountdownTimer 
+                                            isCurrentPlayer={props.playerID === props.ctx.currentPlayer}
+                                            revealClues={props.moves.revealClues}
+                                            endElimination={props.moves.endElimination}
+                                            countdown={props.G.countdown}
+                                            countdownNum={props.moves.countdownNum}
+                                            isCounting={isCounting}
+                                        />
+                                    : null
+                                }
                             </Grid.Column>
                         </Grid>
                     </>
             }
-            
-
-            {/* <div>{props.G.word}</div> */}
-    
-            
-
-
 
         </>
     )

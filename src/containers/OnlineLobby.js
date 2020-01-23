@@ -4,7 +4,6 @@ import { toggleInGame, loginUser, logoutUser } from '../actions/users'
 import BasicLogin from '../components/BasicLogin'
 import ExitButton from '../components/ExitButton'
 import LobbyPage from './LobbyPage'
-import { Lobby } from "boardgame.io/dist/cjs/react";
 import { Grid } from 'semantic-ui-react'
 
 
@@ -14,7 +13,7 @@ const selectGameName = props => props.gameComponents[0].game.name;
 
 function OnlineLobby(props) {
     const {
-        errorMsg,
+        // errorMsg,
         phase,
         rooms,
         playerName,

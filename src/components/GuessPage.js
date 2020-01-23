@@ -19,9 +19,16 @@ function GuessPage(props) {
 
     return(
         <>
-            <Clues clues={props.clues} 
-                    revealClues={props.revealClues} 
-                    playerID={props.playerID}/>
+            {
+                props.clues.length === 0 
+                ? <Segment>
+                    Oh no! All Clues have been eliminated!
+                </Segment>
+                :  <Clues clues={props.clues} 
+                currentPlayer={props.currentPlayer}
+                />
+
+            }
             <Segment>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group widths='equal'>

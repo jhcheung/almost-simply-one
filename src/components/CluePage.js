@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Segment } from 'semantic-ui-react'
 import Word from './Word'
 
 
@@ -29,20 +29,22 @@ function CluePage(props) {
     return(
         <>
             <Word word={props.word} />
-            <Form onSubmit={handleSubmit}>
-                <Form.Group widths='equal'>
-                <Form.Input 
-                        fluid 
-                        // label='clue' 
-                        placeholder='clue' 
-                        name="clue" 
-                        value={clue} 
-                        onChange={handleChange} 
-                />
-                </Form.Group>
+            <Segment>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group widths='equal'>
+                    <Form.Input 
+                            fluid 
+                            // label='clue' 
+                            placeholder='clue' 
+                            name="clue" 
+                            value={clue} 
+                            onChange={handleChange} 
+                    />
+                    </Form.Group>
 
-                <Button primary type='submit'>Add Clue</Button>
-            </Form>
+                    <Button primary type='submit'>Add Clue</Button>
+                </Form>
+            </Segment>
         </>
     )
 }

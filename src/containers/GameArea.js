@@ -2,6 +2,7 @@ import React from 'react'
 import DrawCard from '../components/DrawCard'
 import CluePage from '../components/CluePage'
 import GuessPage from '../components/GuessPage'
+import EliminationPage from '../components/EliminationPage'
 
 
 function GameArea(props) {
@@ -21,11 +22,22 @@ function GameArea(props) {
                                 revealWord={props.revealWord}    
                                 giveClue={props.giveClue} />
             break;
+        case 'elimination':
+            renderGameArea = <EliminationPage 
+                                revealClues={props.revealClues}
+                                clues={props.clues}
+                                eliminateClue={props.eliminateClue}
+                                endElimination={props.endElimination}
+                                countdown={props.countdown}
+                                countdownNum={props.countdownNum}
+                                isCounting={props.isCounting}
+                                />
+            break;
         case 'guess':
             renderGameArea = <GuessPage 
+                                currentPlayer={props.currentPlayer}
                                 clues={props.clues}
                                 playerID={props.playerID}
-                                revealClues={props.revealClues}
                                 guessClue={props.guessClue} 
                                 passClue={props.passClue} 
                             />

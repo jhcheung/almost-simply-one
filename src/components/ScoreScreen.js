@@ -15,10 +15,11 @@ const ScoreScreen = (props) => {
             
                 <Table.Body>
                     {
-                        Object.values(props.gameover.players).map((player, index) => {
-                            if (props.playerNames[index]) {
+                        Object.values(props.gameover.players)
+                            .filter((player, index) => props.playerNames[index])
+                            .map((player, index) => {
                                 return (
-                                    <Table.Row>
+                                    <Table.Row key={index} >
                                         <Table.Cell>
                                         <Header as='h4' image>
                                             <Header.Content>
@@ -30,7 +31,6 @@ const ScoreScreen = (props) => {
                                         <Table.Cell>{player.points}</Table.Cell>
                                     </Table.Row>
                                 )
-                            }
                         })
                     }
                 </Table.Body>

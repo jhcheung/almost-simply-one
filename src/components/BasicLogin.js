@@ -22,7 +22,7 @@ function BasicLogin(props) {
             <Image src='/logo.png' /> 
             Almost Simply One
           </Header> */}
-          <Form size='medium' onSubmit={handleSubmit}>
+          <Form size='small' onSubmit={handleSubmit}>
             <Segment stacked>
               <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' value={name} onChange={handleChange} />
               {/* <Form.Input

@@ -66,9 +66,9 @@ function GameRoom(props) {
                 <div className='ui two buttons'>
                     
                     {
-                        freeSeat || !props.room.players.find(player => player.name === props.currentUser.name)
+                        freeSeat || !playerSeat
                         ? 
-                            <Button onClick={handleJoin}  disabled={!freeSeat} basic color='green'>
+                            <Button onClick={handleJoin}  disabled={!!(!freeSeat || playerSeat)} basic color='green'>
                                 Join
                             </Button>
                         :

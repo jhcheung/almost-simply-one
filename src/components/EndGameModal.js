@@ -18,7 +18,7 @@ const EndGameModal = (props) => {
           </Button> */}
 
           <Button basic color='green' inverted onClick={() => setOpenModal(false)}>
-            <Icon name='remove' /> See Game Board
+            <Icon name='remove' /> See Score Breakdown
           </Button>
         </Modal.Actions>
       </Modal>

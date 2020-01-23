@@ -1,14 +1,7 @@
 import React from 'react'
 import {
   Container,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Image,
-  List,
-  Menu,
-  Segment,
+  Menu
 } from 'semantic-ui-react'
 
 import { Link } from 'react-router-dom'
@@ -16,7 +9,7 @@ import { Link } from 'react-router-dom'
 const MenuBar = (props) => (
     <Menu fixed='top' inverted>
       <Container>
-        <Menu.Item as={Link} to='/play' header>
+        <Menu.Item as={Link} to='/' header>
           {/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
           Almost Simply One
         </Menu.Item>

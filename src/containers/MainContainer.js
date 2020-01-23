@@ -7,6 +7,7 @@ import UnauthenticatedRoute from '../components/UnauthenticatedRoute'
 import LoginForm from '../components/LoginForm'
 import SignupForm from '../components/SignupForm'
 import MenuBar from '../components/MenuBar'
+import HomePage from './HomePage'
 
 import { connect } from 'react-redux'
 import { toggleInGame, loginUser, logoutUser } from '../actions/users'
@@ -20,6 +21,7 @@ function MainContainer(props) {
       <MenuBar logoutDispatch={props.logoutDispatch} currentUser={props.currentUser} />
       <Switch>
             <Route path="/play" exact component={Game} currentUser={props.currentUser}/>
+            <Route path="/" exact component={HomePage} />
             {/* <UnauthenticatedRoute path="/login" exact component={LoginForm} currentUser={props.currentUser}/>
             <UnauthenticatedRoute path="/signup" exact component={SignupForm} currentUser={props.currentUser}/> */}
 

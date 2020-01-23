@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Clue from './Clue'
-import { Button, Card } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 
 function Clues(props) {
 
-    useEffect(() => {
-        props.revealClues(props.playerID);
-    }, [])
     const colors = ['teal', 'green', 'yellow', 'brown', 'grey', 'brown', 'orange' ]
 
     return(
         <Card.Group centered>
             {
-                props.clues.map((clue, index) => <Clue clue={clue} color={colors[index]} key={index}/>)
+                props.clues.map((clue, index) => <Clue eliminateClue={props.eliminateClue} 
+                elimination={props.elimination} clue={clue} color={colors[props.currentPlayer]} key={index}/>)
             }
         </Card.Group>
     )

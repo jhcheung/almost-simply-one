@@ -60,16 +60,36 @@ function guessWrong(G, ctx) {
 
 function passClue(G, ctx) {
   G.secret.clues = []
+  G.notification = `You've passed! You have ${G.cardsLeft} cards left.`
+  G.checkGameEnd = true
   ctx.events.endTurn()
   //maybe setstage to transition screen for pts
 }
 
 function eliminateClue(G, ctx, removeClue) {
-	G.secret.clues = G.secret.clues.filter(clue => clue !== removeClue)
+  G.secret.clues = G.secret.clues.filter(clue => clue !== removeClue)
 }
 
-function revealClues(G, ctx, playerID) {
-	G.players[playerID].clues = G.secret.clues
+function endElimination(G, ctx) {
+  ctx.events.setActivePlayers({
+    currentPlayer: 'guess',
+    others: 'waiting'
+  })
+  G.players[ctx.currentPlayer].clues = G.secret.clues
+}
+
+function countdownNum(G, ctx, num) {
+  G.countdown = G.countdown - num
+}
+
+function revealClues(G, ctx) {
+	// G.players[playerID].clues = G.secret.clues
+  Object.values(ctx.activePlayers).forEach((stage, index) => {
+    if (stage === 'elimination') {
+      G.players[index].clues = [...G.secret.clues]
+    }
+  })         
+
 }
   
 
@@ -94,9 +114,11 @@ function giveClue(G, ctx, clue) {
   if (Object.keys(ctx.activePlayers).length - 1 <= G.secret.clues.length) {
     // console.log("before", ctx.activePlayers)
     ctx.events.setActivePlayers({
-      currentPlayer: 'guess',
-      others: 'waiting'
+      currentPlayer: 'waiting',
+      others: 'elimination'
     })
+  
+    G.countdown = 30
     // console.log("after", ctx.activePlayers)
 
   } else {
@@ -157,6 +179,7 @@ const AlmostSimplyOne = {
       cardsLeft: 3,
       points: 0,
       notification: "",
+      countdown: 30,
       checkGameEnd: false
       // word: "",
       // wordList: [...wordList],
@@ -184,7 +207,12 @@ const AlmostSimplyOne = {
           next: 'waiting'
         },
         waiting: {
-
+          moves: {
+            revealClues: {
+              move: revealClues,
+              optimistic: false
+            }
+          }
         },
         clue: {
           moves: {
@@ -197,22 +225,42 @@ const AlmostSimplyOne = {
 				    optimistic: false
           }
         },
+          next: 'elimination'
+        },
+        elimination: {
+          moves: {
+            eliminateClue: {
+              move: eliminateClue,
+              optimistic: false
+            },
+            endElimination: {
+              move: endElimination,
+              optimistic: false
+            },
+            countdownNum: {
+              move: countdownNum
+            },
+            revealClues: {
+              move: revealClues,
+              optimistic: false
+            }
+          },
           next: 'waiting'
         },
         guess: {
           moves: {
-			revealClues: {
-				move: revealClues,
-				optimistic: false
-			},
+            revealClues: {
+              move: revealClues,
+              optimistic: false
+            },
             passClue: {
-				move: passClue,
-				optimistic: false
-			},
+              move: passClue,
+              optimistic: false
+            },
             guessClue: {
-				move: guessClue,
-				optimistic: false
-			}
+              move: guessClue,
+              optimistic: false
+        }
             // guessRight,
             // guessWrong
           }

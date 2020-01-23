@@ -26,11 +26,14 @@ function TurnMessage(props) {
         case 'guess':
             message = "You may guess a clue or pass"
             break;
+        case 'elimination':
+            message = "Please cancel any duplicate or illegal clues."
+            break;
         // case 'gameover':
         //     message = "The game is over!"
         //     break;
         default:
-            message = "woops"
+            message = "woops. you shouldn't see this."
     }
 
 

@@ -4,7 +4,7 @@ import { Button, Icon } from 'semantic-ui-react'
 
 
 const ExitButton = (props) => {
-    console.log(props)
+    // console.log(props)
     // const handleClick = () => {
     //     props.onLeaveRoom()
     // }
