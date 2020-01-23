@@ -68,17 +68,17 @@ function GameRoom(props) {
                     {
                         freeSeat || !playerSeat
                         ? 
-                            <Button onClick={handleJoin}  disabled={!!(!freeSeat || playerSeat)} basic color='green'>
+                            <Button onClick={handleJoin}  disabled={!!(!freeSeat || playerSeat)} basic positive>
                                 Join
                             </Button>
                         :
-                            <Button onClick={handlePlay}  basic color='green'>
+                            <Button onClick={handlePlay} basic positive>
                                 Play
                             </Button>
 
 
                     }
-                    <Button onClick={handleLeave}  disabled={props.currentUser && !props.currentUser.inGame} basic color='red'>
+                    <Button onClick={handleLeave}  disabled={props.currentUser && !props.currentUser.inGame} basic negative>
                         Leave
                     </Button>
                 </div>

@@ -57,8 +57,8 @@ function OnlineLobby(props) {
               return playersNames;
             }
           
-            rooms.forEach(gameInstance => {
-              gameInstance.players.forEach(player => {
+            rooms.forEach(room => {
+              room.players.forEach(player => {
                 if (player.name) {
                   playersNames.push(player.name);
                 }

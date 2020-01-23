@@ -17,7 +17,8 @@ function PlayerNames(props) {
                     props.playerNames.map((playerName, index)=>  
                         <Menu.Item 
                             key={index}
-                            style={{backgroundColor: colors[index]}}
+                            // style={{backgroundColor: colors[index]}}
+                            color={colors[index]}
                             content={playerName} 
                             active={parseInt(props.currentPlayer) === index}
                         />

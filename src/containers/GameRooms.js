@@ -9,8 +9,8 @@ function GameRooms(props) {
     return(
         <>
             <Card.Group className="game-rooms" >
-                {props.rooms.map(room => <GameRoom 
-                                            key={room.gameID} 
+                {props.rooms.map((room, index) => <GameRoom 
+                                            key={index} 
                                             room={room} 
                                             onJoinRoom={props.onJoinRoom} 
                                             playerName={props.playerName} 

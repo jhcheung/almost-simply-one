@@ -1,6 +1,8 @@
 import React from 'react'
 import DrawCard from '../components/DrawCard'
 import CluePage from '../components/CluePage'
+import Clues from '../components/Clues'
+
 import GuessPage from '../components/GuessPage'
 import EliminationPage from '../components/EliminationPage'
 
@@ -15,6 +17,10 @@ function GameArea(props) {
         case 'waiting':
             renderGameArea = null
             break;
+        case 'waitingGuess':
+            renderGameArea = <Clues clues={props.clues} currentPlayer={props.currentPlayer}
+            />
+            break;
         case 'clue':
             renderGameArea = <CluePage 
                                 word={props.word}
@@ -25,16 +31,19 @@ function GameArea(props) {
         case 'elimination':
             renderGameArea = <EliminationPage 
                                 revealClues={props.revealClues}
+                                currentPlayer={props.currentPlayer}
                                 clues={props.clues}
                                 eliminateClue={props.eliminateClue}
                                 endElimination={props.endElimination}
                                 countdown={props.countdown}
                                 countdownNum={props.countdownNum}
                                 isCounting={props.isCounting}
+                                readdClue={props.readdClue}
                                 />
             break;
         case 'guess':
             renderGameArea = <GuessPage 
+                                currentPlayerName={props.currentPlayerName}
                                 currentPlayer={props.currentPlayer}
                                 clues={props.clues}
                                 playerID={props.playerID}

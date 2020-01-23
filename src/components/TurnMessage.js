@@ -20,6 +20,10 @@ function TurnMessage(props) {
         case 'waiting':
             message = "Waiting for other players..."
             break;
+        case 'waitingGuess':
+            message = `Waiting for ${props.currentPlayerName} to guess...`
+            break;
+    
         case 'clue':
             message = "Please give a clue"
             break;

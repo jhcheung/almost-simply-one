@@ -7,12 +7,19 @@ function Clue(props) {
     const [ eliminated, setEliminated ] = useState(false)
 
     const handleClick = () => {
-      props.eliminateClue(props.clue)
-      setEliminated(true)
+      if (!eliminated) {
+        setEliminated(true)
+        props.eliminateClue(props.clue)
+      } else {
+        setEliminated(false)
+        props.readdClue(props.clue)
+      }
     }
     
+    console.log(props.clue, eliminated)
+
     return(
-        <Card className={eliminated ? 'inverted' : ""} color={props.color}>
+        <Card color={eliminated ? 'red' : props.color}>
           <Card.Content>
             <Card.Header>{props.clue}</Card.Header>
             {/* <Card.Meta>New User</Card.Meta>
@@ -28,9 +35,15 @@ function Clue(props) {
                     {/* <Button basic color='green'>
                         Approve
                     </Button> */}
-                    <Button onClick={handleClick} basic color='red'>
-                        Cancel
-                    </Button>
+                    {
+                      !eliminated 
+                      ? <Button onClick={handleClick} negative>
+                          Cancel
+                        </Button>
+                      : <Button onClick={handleClick} positive>
+                          Undo
+                        </Button>
+                    }
                     {/* </div> */}
                 </Card.Content>
             : null

@@ -10,8 +10,15 @@ function Clues(props) {
     return(
         <Card.Group centered>
             {
-                props.clues.map((clue, index) => <Clue eliminateClue={props.eliminateClue} 
-                elimination={props.elimination} clue={clue} color={colors[props.currentPlayer]} key={index}/>)
+                props.clues.map((clue, index) => 
+                                    <Clue 
+                                        readdClue={props.readdClue}
+                                        eliminateClue={props.eliminateClue} 
+                                        elimination={props.elimination} 
+                                        clue={clue} 
+                                        color={colors[props.currentPlayer]} 
+                                        key={index}
+                                    />)
             }
         </Card.Group>
     )

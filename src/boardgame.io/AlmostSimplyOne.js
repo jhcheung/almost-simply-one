@@ -32,16 +32,16 @@ function drawCard (G, ctx) {
   // G.word = G.wordList[G.wordList.length - 1]
   // G.wordList.pop()
 }
-function guessRight(G, ctx) {
+function guessRight(G, ctx, guess, playerName) {
   G.points = G.points + 1
   // console.log("GUESSRIGHTTTT", G.players[ctx.currentPlayer].points)
   G.players[ctx.currentPlayer].points = G.players[ctx.currentPlayer].points + 1
-  G.notification = `The guess was correct! Your point total is now ${G.points}.`
+  G.notification = `${playerName}'s guess of ${guess} was correct! Your point total is now ${G.points}.`
   //maybe setstage to transition screen for pts
 }
 
 
-function guessWrong(G, ctx) {
+function guessWrong(G, ctx, guess, playerName) {
   if (G.cardsLeft <= 0) {
     G.cardsLeft = 0
     if (G.points === 0) {
@@ -52,15 +52,15 @@ function guessWrong(G, ctx) {
   } else {
     G.cardsLeft -= 1
   }
-  G.notification = `The guess was wrong! You have ${G.cardsLeft} cards left.`
+  G.notification = `${playerName}'s guess of ${guess} was wrong! You have ${G.cardsLeft} card${G.cardsLeft > 1 ? 's' : null} left.`
 
   //maybe setstage to transition screen for pts
 }
 
 
-function passClue(G, ctx) {
+function passClue(G, ctx, playerName) {
   G.secret.clues = []
-  G.notification = `You've passed! You have ${G.cardsLeft} cards left.`
+  G.notification = `${playerName} has passed! You have ${G.cardsLeft} card${G.cardsLeft > 1 ? 's' : null} left.`
   G.checkGameEnd = true
   ctx.events.endTurn()
   //maybe setstage to transition screen for pts
@@ -73,9 +73,12 @@ function eliminateClue(G, ctx, removeClue) {
 function endElimination(G, ctx) {
   ctx.events.setActivePlayers({
     currentPlayer: 'guess',
-    others: 'waiting'
+    others: 'waitingGuess'
   })
-  G.players[ctx.currentPlayer].clues = G.secret.clues
+  Object.values(ctx.activePlayers).forEach((stage, index) => {
+      G.players[index].clues = [...G.secret.clues]
+  })
+  // G.players[ctx.currentPlayer].clues = G.secret.clues
 }
 
 function countdownNum(G, ctx, num) {
@@ -98,11 +101,11 @@ function revealWord(G, ctx, playerID) {
 }
 
 
-function guessClue(G, ctx, guess) {
+function guessClue(G, ctx, guess, playerName) {
   if (guess.toLowerCase() === G.secret.word.toLowerCase()) {
-    guessRight(G, ctx)
+    guessRight(G, ctx, guess, playerName)
   } else {
-    guessWrong(G, ctx)
+    guessWrong(G, ctx, guess, playerName)
   }
   G.secret.clues = []
   G.checkGameEnd = true
@@ -123,6 +126,14 @@ function giveClue(G, ctx, clue) {
 
   } else {
     ctx.events.setStage('waiting') 
+  }
+  // console.log("after alllll", ctx.activePlayers)
+}
+
+function readdClue(G, ctx, clue) {
+  if (Object.keys(ctx.activePlayers).length - 1 >= G.secret.clues.length) {
+    G.secret.clues.push(clue)
+    // console.log("before", ctx.activePlayers)
   }
   // console.log("after alllll", ctx.activePlayers)
 }
@@ -211,6 +222,13 @@ const AlmostSimplyOne = {
             revealClues: {
               move: revealClues,
               optimistic: false
+            },
+            endElimination: {
+              move: endElimination,
+              optimistic: false
+            },
+            countdownNum: {
+              move: countdownNum
             }
           }
         },
@@ -243,9 +261,28 @@ const AlmostSimplyOne = {
             revealClues: {
               move: revealClues,
               optimistic: false
+            },
+            readdClue: {
+              move: readdClue,
+              optimistic: false
             }
           },
-          next: 'waiting'
+          next: 'waitingGuess'
+        },
+        waitingGuess: {
+          moves: {
+            revealClues: {
+              move: revealClues,
+              optimistic: false
+            },
+            endElimination: {
+              move: endElimination,
+              optimistic: false
+            },
+            countdownNum: {
+              move: countdownNum
+            }
+          }
         },
         guess: {
           moves: {

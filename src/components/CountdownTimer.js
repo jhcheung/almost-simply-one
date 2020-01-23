@@ -1,33 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useInterval from '@use-it/interval';
-import Clues from './Clues'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Segment } from 'semantic-ui-react';
 
 
-function CountdownTimer(props) {
+function CountdownTimer({ isCurrentPlayer, isCounting, countdown, endElimination, revealClues, countdownNum}) {
     // let [count, setCount] = useState(30);
 
+    useEffect(() => {
+        if (isCurrentPlayer) {
+            revealClues();
+        }
+    }, [revealClues, isCurrentPlayer])
+
     useInterval(() => {
-        if (props.isCounting) {
-            if (props.countdown === 0) {
-                props.endElimination()
+        if (isCounting) {
+            if (countdown === 0) {
+                endElimination()
+            } else {
+                countdownNum(1);
             }
-            props.countdownNum(1);
         }
     }, 1000);
 
-    useInterval(() => {
-        if (props.isCurrentPlayer) {
-            props.revealClues();
-        }
-    }, [])
     
 
     return(
             <Segment>
-                <CircularProgressbar value={props.countdown} minValue={0} maxValue={30} text={`${props.countdown} s`} />
+                <CircularProgressbar value={countdown} minValue={0} maxValue={30} text={`${countdown} s`} />
             </Segment>
     )
 }

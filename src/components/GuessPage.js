@@ -9,7 +9,7 @@ function GuessPage(props) {
     const handleSubmit = (e) =>{
         e.preventDefault();
         if (guess) {
-          props.guessClue(guess)
+          props.guessClue(guess, props.currentPlayerName)
         }
     }
 
@@ -41,7 +41,7 @@ function GuessPage(props) {
                     </Form.Group>
 
                     <Button positive type='submit'>Guess</Button>
-                    <Button negative onClick={() => props.passClue()}>Pass</Button>
+                    <Button negative onClick={() => props.passClue(props.currentPlayerName)}>Pass</Button>
 
                 </Form>
 

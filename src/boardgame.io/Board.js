@@ -70,7 +70,7 @@ function Board(props) {
                         <Grid>
                             <Grid.Row centered>
                                 <Grid.Column width={8}>
-                                    <TurnMessage stage={stage} />
+                                    <TurnMessage stage={stage} currentPlayerName={playerNames[parseInt(props.ctx.currentPlayer)]} />
                                 </Grid.Column>
 
                             </Grid.Row>
@@ -81,6 +81,7 @@ function Board(props) {
 
                             <Grid.Column width={10}>
                                 <GameArea 
+                                            currentPlayerName={playerNames[parseInt(props.ctx.currentPlayer)]}
                                             currentPlayer={props.ctx.currentPlayer}
                                             playerID={props.playerID}
                                             stage={stage}
@@ -94,6 +95,7 @@ function Board(props) {
                                             passClue={props.moves.passClue}
                                             eliminateClue={props.moves.eliminateClue}
                                             endElimination={props.moves.endElimination}
+                                            readdClue={props.moves.readdClue}
                                         />
                             </Grid.Column>
                             <Grid.Column width={3}>
