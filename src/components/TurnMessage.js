@@ -25,10 +25,10 @@ function TurnMessage(props) {
             break;
     
         case 'clue':
-            message = "Please give a clue"
+            message = "Please give a clue."
             break;
         case 'guess':
-            message = "You may guess a clue or pass"
+            message = "You may guess or pass."
             break;
         case 'elimination':
             message = "Please cancel any duplicate or illegal clues."

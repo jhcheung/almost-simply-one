@@ -2,7 +2,7 @@ import React from 'react'
 import DrawCard from '../components/DrawCard'
 import CluePage from '../components/CluePage'
 import Clues from '../components/Clues'
-
+import { Segment } from 'semantic-ui-react'
 import GuessPage from '../components/GuessPage'
 import EliminationPage from '../components/EliminationPage'
 
@@ -18,7 +18,12 @@ function GameArea(props) {
             renderGameArea = null
             break;
         case 'waitingGuess':
-            renderGameArea = <Clues clues={props.clues} currentPlayer={props.currentPlayer}
+            renderGameArea = props.clues.length === 0 
+                            ? <Segment>
+                                Oh no! All Clues have been eliminated!
+                            </Segment>
+                            :
+                            <Clues clues={props.clues} currentPlayer={props.currentPlayer}
             />
             break;
         case 'clue':

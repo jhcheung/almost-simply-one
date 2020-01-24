@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button, Container, Header, Grid, GridColumn, Segment } from 'semantic-ui-react'
+import { Form, Button, Header, Segment } from 'semantic-ui-react'
 import useFormFields from '../hooks/useFormFields'
 
 function CreateGame(props) {
@@ -14,7 +14,7 @@ function CreateGame(props) {
         if (fields.numPlayers) {
           props.onCreateRoom(props.gameName, fields.numPlayers)
         }
-        // resetField("roomName")
+      // resetField("roomName")
         resetField("numPlayers")
     }
 

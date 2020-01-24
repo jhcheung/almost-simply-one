@@ -1,11 +1,11 @@
 import React from 'react';
 import Game from './Game'
-import { Container } from 'semantic-ui-react'
+// import { Container } from 'semantic-ui-react'
 import { Switch, Route } from 'react-router-dom';
-import AuthenticatedRoute from '../components/AuthenticatedRoute'
-import UnauthenticatedRoute from '../components/UnauthenticatedRoute'
-import LoginForm from '../components/LoginForm'
-import SignupForm from '../components/SignupForm'
+// import AuthenticatedRoute from '../components/AuthenticatedRoute'
+// import UnauthenticatedRoute from '../components/UnauthenticatedRoute'
+// import LoginForm from '../components/LoginForm'
+// import SignupForm from '../components/SignupForm'
 import MenuBar from '../components/MenuBar'
 import HomePage from './HomePage'
 

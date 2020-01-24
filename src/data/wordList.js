@@ -44,7 +44,26 @@ const wordList = [
     'Manure',
     'Lake',
     'Lighthouse',
-    'Paris'
+    'Paris',
+    'Baker',
+    'Perfume',
+    'Flame',
+    'Zombie',
+    'Joker',
+    'Barbecue',
+    'Panda',
+    'Dream',
+    'Marriage',
+    'Mirage',
+    'Fire',
+    'Crossroads',
+    'Princess',
+    'Prince',
+    'Sugar',
+    'Theater',
+    'Shovel',
+    'Dune',
+    'Pregnant'
 ]
 
 export default wordList

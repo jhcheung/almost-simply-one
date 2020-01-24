@@ -52,7 +52,7 @@ function guessWrong(G, ctx, guess, playerName) {
   } else {
     G.cardsLeft -= 1
   }
-  G.notification = `${playerName}'s guess of ${guess} was wrong! You have ${G.cardsLeft} card${G.cardsLeft > 1 ? 's' : null} left.`
+  G.notification = `${playerName}'s guess of ${guess} was wrong! You have ${G.cardsLeft} card${G.cardsLeft > 1 ? 's' : ""} left.`
 
   //maybe setstage to transition screen for pts
 }
@@ -60,7 +60,7 @@ function guessWrong(G, ctx, guess, playerName) {
 
 function passClue(G, ctx, playerName) {
   G.secret.clues = []
-  G.notification = `${playerName} has passed! You have ${G.cardsLeft} card${G.cardsLeft > 1 ? 's' : null} left.`
+  G.notification = `${playerName} has passed! You have ${G.cardsLeft} card${G.cardsLeft > 1 ? 's' : ""} left.`
   G.checkGameEnd = true
   ctx.events.endTurn()
   //maybe setstage to transition screen for pts
@@ -187,7 +187,7 @@ const AlmostSimplyOne = {
         '5': { points: 0, clues: [], word: ""  },
         '6': { points: 0, clues: [], word: ""  },
       },
-      cardsLeft: 3,
+      cardsLeft: 5,
       points: 0,
       notification: "",
       countdown: 30,

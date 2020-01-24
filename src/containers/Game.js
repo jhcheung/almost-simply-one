@@ -19,7 +19,7 @@ import { Container } from 'semantic-ui-react'
 
 function Game() {
     return(
-      <Container style={{paddingTop: '50px'}}>
+      <Container style={{paddingTop: '100px'}}>
         <Lobby
             gameServer={`http://${window.location.hostname}:8000`}
             lobbyServer={`http://${window.location.hostname}:8000`}

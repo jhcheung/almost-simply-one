@@ -23,7 +23,7 @@ function LobbyPage(props) {
     } = props;
 
     return (
-        <Grid>
+        <Grid verticalAlign='middle' >
             <Grid.Row>
                 <Grid.Column width={4}/>
                 <Grid.Column width={8}>

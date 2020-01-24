@@ -131,7 +131,7 @@ function OnlineLobby(props) {
                                 credentials={runningGame.credentials}
                             />
                     )}
-                    <Grid>
+                    <Grid verticalAlign='middle'>
                         <Grid.Column floated="right" width={3} >
 
                             <ExitButton playerName={playerName} handleLeaveRoom={handleLeaveRoom} />
