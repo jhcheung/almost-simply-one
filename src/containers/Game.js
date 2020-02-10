@@ -22,11 +22,14 @@ require('dotenv').config()
 function Game() {
     const PORT = process.env.PORT || 8000;
 
+    const hostname = window.location.hostname;
+    const url = window.location.protocol+'//'+hostname+(window.location.port ? ':'+window.location.port: '');
+
     return(
       <Container style={{paddingTop: '100px'}}>
         <Lobby
-            gameServer={`https://${window.location.hostname}:${PORT}`}
-            lobbyServer={`https://${window.location.hostname}:${PORT}`}
+            gameServer={(process.env.NODE_ENV === 'production') ? `${url}` : `${hostname}:${PORT}`}
+            lobbyServer={(process.env.NODE_ENV === 'production') ? `${url}` : `${hostname}:${PORT}`}
             gameComponents={ [{game: AlmostSimplyOne, board: AlmostSimplyOneBoard}]}
             debug={false}
             renderer={({
