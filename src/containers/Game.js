@@ -7,6 +7,8 @@ import { Lobby } from 'boardgame.io/react';
 import OnlineLobby from './OnlineLobby'
 // import { Local } from 'boardgame.io/multiplayer';
 import { Container } from 'semantic-ui-react'
+require('dotenv').config()
+
 
 
 // const AlmostSimplyOneClient = Client({
@@ -18,11 +20,13 @@ import { Container } from 'semantic-ui-react'
 
 
 function Game() {
+    const PORT = process.env.PORT || 8000;
+
     return(
       <Container style={{paddingTop: '100px'}}>
         <Lobby
-            gameServer={`http://${window.location.hostname}:8000`}
-            lobbyServer={`http://${window.location.hostname}:8000`}
+            gameServer={`https://${window.location.hostname}:${PORT}`}
+            lobbyServer={`https://${window.location.hostname}:${PORT}`}
             gameComponents={ [{game: AlmostSimplyOne, board: AlmostSimplyOneBoard}]}
             debug={false}
             renderer={({
