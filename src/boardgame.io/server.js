@@ -1,9 +1,12 @@
 import AlmostSimplyOne from "./AlmostSimplyOne";
 require('dotenv').config()
+import path from 'path';
+import serve from 'koa-static';
+import { historyApiFallback } from 'koa2-connect-history-api-fallback'
 
 import { Server, Mongo } from 'boardgame.io/server';
 
-const port = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
 const server = Server({
   games: [AlmostSimplyOne],
@@ -15,5 +18,14 @@ const server = Server({
   }),
 });
 
+const { app } = server;
+const root = path.join(__dirname, './build');
+app.use(
+  historyApiFallback({ index: 'index.html', whiteList: ['/api', '/games'] })
+);
 
-server.run(port);
+app.use(serve(root))
+
+server.run(PORT, () => {
+  console.log(`Serving at: http://localhost:${PORT}/`)
+});
