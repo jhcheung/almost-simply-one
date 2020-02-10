@@ -3,15 +3,17 @@ require('dotenv').config()
 
 import { Server, Mongo } from 'boardgame.io/server';
 
+const port = process.env.PORT || 8000;
+
 const server = Server({
   games: [AlmostSimplyOne],
 
   db: new Mongo({
-      url: 'mongodb://localhost:27017',
-      // url: `mongodb+srv://jimmy:${process.env.MONGODB_PASSWORD}@cluster0-czkry.mongodb.net/test?retryWrites=true&w=majority`,
+      // url: 'mongodb://localhost:27017',
+      url: `mongodb+srv://jimmy:${process.env.MONGODB_PASSWORD}@cluster0-czkry.mongodb.net/test?retryWrites=true&w=majority`,
       dbname: 'almost-simply-one1'
   }),
 });
 
 
-server.run(8000);
+server.run(port);
