@@ -28,7 +28,7 @@
     "serve": "^11.3.0"
   },
   "scripts": {
-    "start": "node -r esm src/boardgame.io/server.js",
+    "start": "node -r esm src/server.js",
     "heroku-postbuild": "npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test",
