@@ -3,7 +3,7 @@ import { Menu } from 'semantic-ui-react'
 
 
 function PlayerNames(props) {
-    console.log(props)
+    // console.log(props)
 
     const colors = ['teal', 'green', 'yellow', 'brown', 'grey', 'brown', 'orange' ]
     return(

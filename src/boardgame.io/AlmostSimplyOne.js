@@ -68,7 +68,7 @@ function passClue(G, ctx, playerName) {
 
 function eliminateClue(G, ctx, removeClue) {
   G.secret.clues = G.secret.clues.filter(clue => clue !== removeClue)
-}
+}wi
 
 function endElimination(G, ctx) {
   ctx.events.setActivePlayers({

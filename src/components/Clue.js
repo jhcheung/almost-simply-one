@@ -16,7 +16,7 @@ function Clue(props) {
       }
     }
     
-    console.log(props.clue, eliminated)
+    // console.log(props.clue, eliminated)
 
     return(
         <Card color={eliminated ? 'red' : props.color}>
