@@ -11,6 +11,7 @@
     "esm": "^3.2.25",
     "koa-static": "^5.0.0",
     "koa2-connect-history-api-fallback": "^0.1.2",
+    "minimist": "^1.2.5",
     "mongodb": "^3.5.2",
     "mongodb-stitch-browser-sdk": "^4.8.0",
     "path": "^0.12.7",
