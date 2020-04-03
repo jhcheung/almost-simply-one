@@ -29,4 +29,4 @@ After you have bundle installed, you can now run the server with this:
 npm start
 ```
 
-Then, you can navigate to localhost:8000 and play the game. Please note that this is a multiplayer game with no single player mode so multiple players are needed to experiene fully.
+Then, you can navigate to localhost:8000 and create a game to play. Please note that this is a multiplayer game with no single player mode so multiple players will need to join the game to start.
