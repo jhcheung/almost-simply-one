@@ -1,7 +1,6 @@
 import React from 'react';
 import GameRoom from '../components/GameRoom'
 import { Card } from 'semantic-ui-react'
-// import { LobbyRoomInstance } from 'boardgame.io'
 
 
 function GameRooms(props) {

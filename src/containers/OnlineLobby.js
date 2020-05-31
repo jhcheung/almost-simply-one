@@ -94,15 +94,10 @@ function OnlineLobby(props) {
 
     switch (phase) {
         case "enter":
-            // loginDispatch({
-            //     name: "Jimmy"
-            // }) 
-            // onEnterLobby(currentUser.name)
             return (
                 <BasicLogin loginDispatch={loginDispatch} onEnterLobby={onEnterLobby} />
             )
         case "list": 
-
             return (
                 <LobbyPage 
                     gameName={selectGameName(props)}
@@ -120,7 +115,6 @@ function OnlineLobby(props) {
                 />
             )
         case "play": 
-
             return (
                 <>
                     {runningGame && (
@@ -143,7 +137,7 @@ function OnlineLobby(props) {
         default: 
             return (
                 <div>
-                    default
+                    You should not be here.
                 </div>
             )
     }

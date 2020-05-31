@@ -22,12 +22,6 @@ function MainContainer(props) {
       <Switch>
             <Route path="/play" exact component={Game} currentUser={props.currentUser}/>
             <Route path="/" exact component={HomePage} />
-            {/* <UnauthenticatedRoute path="/login" exact component={LoginForm} currentUser={props.currentUser}/>
-            <UnauthenticatedRoute path="/signup" exact component={SignupForm} currentUser={props.currentUser}/> */}
-
-            {/* <AuthenticatedRoute path="/" exact component={HomePage} currentUser={props.currentUser}/> */}
-
-            {/* <UnauthenticatedRoute path="/login" exact component={Login} /> */}
       </Switch>
     </>
     
