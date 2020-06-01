@@ -6,8 +6,6 @@ import { Segment } from 'semantic-ui-react';
 
 
 function CountdownTimer({ isCurrentPlayer, isCounting, countdown, endElimination, revealClues, countdownNum}) {
-    // let [count, setCount] = useState(30);
-
     useEffect(() => {
         if (isCurrentPlayer) {
             revealClues();

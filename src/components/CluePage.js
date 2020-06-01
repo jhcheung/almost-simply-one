@@ -18,14 +18,6 @@ function CluePage(props) {
         setClue(value)
     }
 
-
-      
-
-    // useEffect(() => {
-    //     props.revealWord(props.playerID);
-
-    // }, [props.playerID, props.revealWord, props.word])
-
     return(
         <>
             <Word word={props.word} />
@@ -34,7 +26,6 @@ function CluePage(props) {
                     <Form.Group widths='equal'>
                     <Form.Input 
                             fluid 
-                            // label='clue' 
                             placeholder='clue' 
                             name="clue" 
                             value={clue} 

@@ -16,25 +16,16 @@ function Clue(props) {
       }
     }
     
-    // console.log(props.clue, eliminated)
 
     return(
         <Card color={eliminated ? 'red' : props.color}>
           <Card.Content>
             <Card.Header>{props.clue}</Card.Header>
-            {/* <Card.Meta>New User</Card.Meta>
-            <Card.Description>
-              Jenny requested permission to view your contact details
-            </Card.Description> */}
           </Card.Content>
           {
               props.elimination 
               ? 
                 <Card.Content extra>
-                    {/* <div className='ui two buttons'> */}
-                    {/* <Button basic color='green'>
-                        Approve
-                    </Button> */}
                     {
                       !eliminated 
                       ? <Button onClick={handleClick} negative>
@@ -44,7 +35,6 @@ function Clue(props) {
                           Undo
                         </Button>
                     }
-                    {/* </div> */}
                 </Card.Content>
             : null
           }
