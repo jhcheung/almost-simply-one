@@ -30,3 +30,9 @@ npm start
 ```
 
 Then, you can navigate to localhost:8000 and create a game to play. Please note that this is a multiplayer game with no single player mode so multiple players will need to join the game to start.
+
+### How to play
+
+One player will be the guesser while everyone else gives a clue. 
+
+If any clues match, they are eliminated.
