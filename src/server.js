@@ -14,7 +14,7 @@ const server = Server({
   //     // url: 'mongodb://localhost:27017',
   //     url: `mongodb+srv://jimmy:${process.env.MONGODB_PASSWORD}@cluster0-czkry.mongodb.net/test?retryWrites=true&w=majority`,
   //     dbname: 'almost-simply-one1'
-  // }),
+  // }), //MongoDB setup
 });
 
 const { app } = server;
