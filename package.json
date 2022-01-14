@@ -14,7 +14,7 @@
     "minimist": "^1.2.5",
     "mongodb": "^3.6.2",
     "mongodb-stitch-browser-sdk": "^4.8.0",
-    "node-forge": "^0.10.0",
+    "node-forge": "^1.0.0",
     "path": "^0.12.7",
     "react": "^16.14.0",
     "react-circular-progressbar": "^2.0.3",
